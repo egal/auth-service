@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8acbe5c740bc5bf4017d812658d545a5",
+    "content-hash": "8aae939ea510d282420350199b2e1172",
     "packages": [
         {
             "name": "brick/math",
@@ -300,16 +300,16 @@
         },
         {
             "name": "egal/framework",
-            "version": "v2.0.0beta16",
+            "version": "v2.0.0beta18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/smartworldteam/egal-framework-php-package.git",
-                "reference": "b161afdbc578263c0cd8735826809f1318f0f6dd"
+                "reference": "71435a49e60182682dd07bbbc5f10664805a1cd8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/smartworldteam/egal-framework-php-package/zipball/b161afdbc578263c0cd8735826809f1318f0f6dd",
-                "reference": "b161afdbc578263c0cd8735826809f1318f0f6dd",
+                "url": "https://api.github.com/repos/smartworldteam/egal-framework-php-package/zipball/71435a49e60182682dd07bbbc5f10664805a1cd8",
+                "reference": "71435a49e60182682dd07bbbc5f10664805a1cd8",
                 "shasum": ""
             },
             "require": {
@@ -344,9 +344,9 @@
             ],
             "support": {
                 "issues": "https://github.com/smartworldteam/egal-framework-php-package/issues",
-                "source": "https://github.com/smartworldteam/egal-framework-php-package/tree/v2.0.0beta16"
+                "source": "https://github.com/smartworldteam/egal-framework-php-package/tree/v2.0.0beta18"
             },
-            "time": "2021-05-13T04:36:47+00:00"
+            "time": "2021-05-20T03:00:54+00:00"
         },
         {
             "name": "egulias/email-validator",
@@ -7580,9 +7580,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "egal/framework": 10
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
