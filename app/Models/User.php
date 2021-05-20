@@ -2,19 +2,19 @@
 
 namespace App\Models;
 
-use App\Exceptions\EmptyPasswordException;
-use App\Exceptions\LoginException;
 use App\Exceptions\PasswordHashException;
-use App\Exceptions\UserNotIdentifiedException;
-use Egal\Auth\Exceptions\TokenExpiredException;
 use Egal\Auth\Tokens\UserMasterToken;
 use Egal\Auth\Tokens\UserServiceToken;
 use Egal\Auth\Traits\Authenticatable;
+use Egal\Exception\LoginAuthException;
+use Egal\Exception\TokenExpiredAuthException;
+use Egal\Exception\UserNotFoundAuthException;
 use Egal\Model\Model;
 use Egal\Model\Traits\UsesUuid;
 use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
@@ -77,7 +77,7 @@ class User extends Model
     public static function actionRegisterByEmailAndPassword(string $email, string $password): User
     {
         if (!$password) {
-            throw new EmptyPasswordException();
+            throw new Exception('Empty password!');
         }
 
         $user = new static();
@@ -85,7 +85,7 @@ class User extends Model
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
         if (!$hashedPassword) {
-            throw new PasswordHashException();
+            throw new PasswordHashException('Password hash error!');
         }
 
         $user->password = $hashedPassword;
@@ -97,7 +97,7 @@ class User extends Model
      * @param string $email
      * @param string $password
      * @return string
-     * @throws LoginException
+     * @throws LoginAuthException
      * @noinspection PhpUnused
      */
     public static function actionLoginByEmailAndPassword(string $email, string $password): string
@@ -108,7 +108,7 @@ class User extends Model
             ->first();
 
         if (!$user || !password_verify($password, $user->password)) {
-            throw new LoginException('Incorrect Email or password!');
+            throw new LoginAuthException('Incorrect Email or password!');
         }
 
         $umt = new UserMasterToken();
@@ -122,9 +122,9 @@ class User extends Model
      * @param string $token
      * @param string $serviceName
      * @return string
-     * @throws LoginException
-     * @throws UserNotIdentifiedException
-     * @throws TokenExpiredException
+     * @throws LoginAuthException
+     * @throws TokenExpiredAuthException
+     * @throws UserNotFoundAuthException
      * @noinspection PhpUnused
      */
     final public static function actionLoginToService(string $token, string $serviceName): string
@@ -138,7 +138,7 @@ class User extends Model
         /** @var Service $service */
         $service = Service::query()->find($serviceName);
         if (!$user) {
-            throw new UserNotIdentifiedException();
+            throw new UserNotFoundAuthException();
         }
         if (!$service) {
             $thisServiceName = config('app.service_name');
@@ -149,7 +149,7 @@ class User extends Model
                 $service->key = config('app.service_key');
                 $service->save();
             } else {
-                throw new LoginException('Service not found!');
+                throw new LoginAuthException('Service not found!');
             }
         }
 
@@ -195,14 +195,13 @@ class User extends Model
 
     protected function generateAuthInformation(): array
     {
-        return array_merge(
-            $this->fresh()->toArray(),
-            [
-                'auth_identification' => $this->{$this->getKeyName()},
-                'roles' => array_unique($this->roles->pluck('id')->toArray()),
-                'permissions' => array_unique($this->permissions->pluck('id')->toArray())
-            ]
-        );
+        $result = $this->fresh()->toArray();
+        $result['auth_identification'] = $this->{$this->getKeyName()};
+        $rolesNames = $this->roles->pluck('id')->toArray();
+        $permissionNames = $this->permissions->pluck('id')->toArray();
+        $result = Arr::add($result, 'roles', array_unique($rolesNames));
+        $result = Arr::add($result, 'permissions', array_unique($permissionNames));
+        return $result;
     }
 
 }
