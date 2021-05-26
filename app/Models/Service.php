@@ -74,7 +74,6 @@ class Service extends EgalModel
      * @param string $token
      * @param string $serviceName
      * @return string
-     * @throws LoginException
      * @throws ServiceNotFoundAuthException
      * @throws TokenExpiredException
      */
