@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
+use App\Exceptions\LoginException;
 use App\Exceptions\ServiceNotFoundAuthException;
+use Egal\Auth\Exceptions\TokenExpiredException;
 use Egal\Auth\Tokens\ServiceMasterToken;
 use Egal\Auth\Tokens\ServiceServiceToken;
 use Egal\Auth\Traits\Authenticatable;
-use Egal\Exception\LoginAuthException;
-use Egal\Exception\TokenExpiredAuthException;
 use Egal\Model\Model as EgalModel;
 
 /**
@@ -45,6 +45,12 @@ class Service extends EgalModel
         'updated_at',
     ];
 
+    /**
+     * @param string $serviceName
+     * @param string $key
+     * @return string
+     * @throws LoginException
+     */
     public static function actionLogin(string $serviceName, string $key): string
     {
         /** @var Service $service */
@@ -54,7 +60,7 @@ class Service extends EgalModel
             ->first();
 
         if (!$service) {
-            throw new LoginAuthException('Incorrect key or service name!');
+            throw new LoginException('Incorrect key or service name!');
         }
 
         $smt = new ServiceMasterToken();
@@ -68,9 +74,9 @@ class Service extends EgalModel
      * @param string $token
      * @param string $serviceName
      * @return string
-     * @throws LoginAuthException
-     * @throws TokenExpiredAuthException
+     * @throws LoginException
      * @throws ServiceNotFoundAuthException
+     * @throws TokenExpiredException
      */
     final public static function actionLoginToService(string $token, string $serviceName): string
     {
@@ -88,7 +94,7 @@ class Service extends EgalModel
         $recipientService = Service::query()->find($serviceName);
 
         if (!$recipientService) {
-            throw new LoginAuthException('Service not found!');
+            throw new ServiceNotFoundAuthException();
         }
 
         $sst = new ServiceServiceToken();

@@ -2,11 +2,12 @@
 
 namespace App\Exceptions;
 
-use Egal\Exception\AuthException;
+use Exception;
 
-class ServiceNotFoundAuthException extends AuthException
+class ServiceNotFoundAuthException extends Exception
 {
 
-    const BASE_MESSAGE_LINE = 'Service not found!';
+    protected $message = 'Service not found!';
+    protected $code = 400;
 
 }

@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Service;
 use Illuminate\Console\Command;
+use Throwable;
 
 /**
  * Register your service in auth-service.
@@ -20,6 +21,9 @@ class RegisterServiceCommand extends Command
 
     protected $description = 'Register new service in auth-service';
 
+    /**
+     * @throws Throwable
+     */
     public function handle(): void
     {
         $serviceName = trim((string)$this->argument('service_name'));

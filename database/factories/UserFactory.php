@@ -10,7 +10,7 @@ class UserFactory extends Factory
 
     protected $model = User::class;
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'email' => $this->faker->email,

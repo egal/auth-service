@@ -10,7 +10,7 @@ class PermissionFactory extends Factory
 
     protected $model = Permission::class;
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'name' => $this->faker->word,
