@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "628f6653b7ba7d708aa7fb09383e0d2c",
+    "content-hash": "8e01e7eab885b9423d1897f55b09bb8e",
     "packages": [
         {
             "name": "brick/math",
@@ -300,16 +300,16 @@
         },
         {
             "name": "egal/framework",
-            "version": "v2.0.0beta22",
+            "version": "v2.0.0beta23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/smartworldteam/egal-framework-php-package.git",
-                "reference": "065ab150d3e98efff44433c13abfc1192d7df70b"
+                "reference": "dfbcc8e1b4958396d88c3138d247a3a331ac614f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/smartworldteam/egal-framework-php-package/zipball/065ab150d3e98efff44433c13abfc1192d7df70b",
-                "reference": "065ab150d3e98efff44433c13abfc1192d7df70b",
+                "url": "https://api.github.com/repos/smartworldteam/egal-framework-php-package/zipball/dfbcc8e1b4958396d88c3138d247a3a331ac614f",
+                "reference": "dfbcc8e1b4958396d88c3138d247a3a331ac614f",
                 "shasum": ""
             },
             "require": {
@@ -344,9 +344,9 @@
             ],
             "support": {
                 "issues": "https://github.com/smartworldteam/egal-framework-php-package/issues",
-                "source": "https://github.com/smartworldteam/egal-framework-php-package/tree/v2.0.0beta22"
+                "source": "https://github.com/smartworldteam/egal-framework-php-package/tree/v2.0.0beta23"
             },
-            "time": "2021-05-28T05:10:51+00:00"
+            "time": "2021-05-28T10:28:04+00:00"
         },
         {
             "name": "egulias/email-validator",
