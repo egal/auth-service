@@ -47,4 +47,4 @@ RUN chown -R $user:$user /app
 
 USER $user
 
-CMD /wait && ./artisan egal:run
+CMD /wait && ./artisan migrate --force && ./artisan egal:run
