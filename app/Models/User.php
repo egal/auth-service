@@ -1,4 +1,4 @@
-<?php /** @noinspection PhpMissingFieldTypeInspection */
+<?php
 
 namespace App\Models;
 
@@ -33,7 +33,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @action registerByEmailAndPassword {@statuses-access guest}
  * @action login {@statuses-access guest}
  * @action loginByEmailAndPassword {@statuses-access guest}
- * @action actionLoginToService {@statuses-access guest}
+ * @action loginToService {@statuses-access guest}
  */
 class User extends Model
 {
@@ -98,7 +98,6 @@ class User extends Model
      * @param string $password
      * @return string
      * @throws LoginException
-     * @noinspection PhpUnused
      */
     public static function actionLoginByEmailAndPassword(string $email, string $password): string
     {
@@ -125,7 +124,6 @@ class User extends Model
      * @throws LoginException
      * @throws UserNotIdentifiedException
      * @throws TokenExpiredException
-     * @noinspection PhpUnused
      */
     final public static function actionLoginToService(string $token, string $serviceName): string
     {
