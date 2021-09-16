@@ -6,7 +6,7 @@
     "prefer-stable": true,
     "require": {
         "php": "^7.4|^8.0",
-        "egal/framework": "v2.0.0beta39",
+        "egal/framework": "v2.0.0beta40",
         "staudenmeir/eloquent-has-many-deep": "^1.13"
     },
     "require-dev": {
