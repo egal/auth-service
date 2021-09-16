@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6fce47f184de4c5f5b1179519940b164",
+    "content-hash": "c6d1c99e22e34d785aa55d8c38534f5e",
     "packages": [
         {
             "name": "brick/math",
@@ -300,16 +300,16 @@
         },
         {
             "name": "egal/framework",
-            "version": "v2.0.0beta31",
+            "version": "v2.0.0beta32",
             "source": {
                 "type": "git",
                 "url": "https://github.com/egal/egal-framework-php-package.git",
-                "reference": "14e8d81de6d719aedaa83eb7c38b3c88e906cf61"
+                "reference": "7661a0f188df5fa3980926e8a8962b5960043da8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/egal/egal-framework-php-package/zipball/14e8d81de6d719aedaa83eb7c38b3c88e906cf61",
-                "reference": "14e8d81de6d719aedaa83eb7c38b3c88e906cf61",
+                "url": "https://api.github.com/repos/egal/egal-framework-php-package/zipball/7661a0f188df5fa3980926e8a8962b5960043da8",
+                "reference": "7661a0f188df5fa3980926e8a8962b5960043da8",
                 "shasum": ""
             },
             "require": {
@@ -324,7 +324,9 @@
             },
             "require-dev": {
                 "mockery/mockery": "^1.4.2",
-                "phpunit/phpunit": "^8.5.8|^9.3.3"
+                "phpunit/phpunit": "^8.5.8|^9.3.3",
+                "slevomat/coding-standard": "^7.0",
+                "squizlabs/php_codesniffer": "^3.6"
             },
             "type": "library",
             "autoload": {
@@ -349,9 +351,9 @@
             ],
             "support": {
                 "issues": "https://github.com/egal/egal-framework-php-package/issues",
-                "source": "https://github.com/egal/egal-framework-php-package/tree/v2.0.0beta31"
+                "source": "https://github.com/egal/egal-framework-php-package/tree/v2.0.0beta32"
             },
-            "time": "2021-07-06T03:46:57+00:00"
+            "time": "2021-07-19T10:46:37+00:00"
         },
         {
             "name": "egulias/email-validator",
@@ -7598,5 +7600,5 @@
         "php": "^7.4|^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }
