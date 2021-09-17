@@ -1,4 +1,4 @@
-<?php /** @noinspection PhpMissingFieldTypeInspection */
+<?php
 
 namespace App\Models;
 
@@ -7,75 +7,52 @@ use App\Exceptions\ServiceNotFoundAuthException;
 use Egal\Auth\Exceptions\TokenExpiredException;
 use Egal\Auth\Tokens\ServiceMasterToken;
 use Egal\Auth\Tokens\ServiceServiceToken;
-use Egal\Auth\Traits\Authenticatable;
-use Egal\Model\Model as EgalModel;
 
 /**
- * @property $id {@primary-key} {@property-type field} {@validation-rules required|string|unique:services}
- * @property $name {@property-type field} {@validation-rules required|string|unique:services}
- * @property $key {@property-type field} {@validation-rules required|string}
- * @property $created_at {@property-type field}
- * @property $updated_at {@property-type field}
- *
- * @action getItem {@roles-access developer}
- * @action getItems {@roles-access developer}
- * @action create {@roles-access developer}
- * @action update {@roles-access developer}
- * @action delete {@roles-access developer}
- *
- * @action login {@statuses-access guest}
- * @action loginToService {@statuses-access guest}
+ * @action login            {@statuses-access guest}
+ * @action loginToService   {@statuses-access guest}
  */
-class Service extends EgalModel
+class Service
 {
 
-    use Authenticatable;
+    protected string $name;
+    protected string $key;
 
-    protected $keyType = 'string';
+    public static function find($name): ?self
+    {
+        $config = config('app.services.' . $name);
 
-    protected $fillable = [
-        'id',
-        'name',
-        'key',
-    ];
+        if (!$config) {
+            return null;
+        }
 
-    protected $hidden = [
-        'key',
-        'created_at',
-        'updated_at',
-    ];
+        $result = new static();
+        $result->name = $name;
+        $result->key = $config['key'];
+
+        return $result;
+    }
 
     /**
-     * @param string $serviceName
-     * @param string $key
-     * @return string
      * @throws LoginException
      */
     public static function actionLogin(string $serviceName, string $key): string
     {
-        /** @var Service $service */
-        $service = self::query()
-            ->where('name', '=', $serviceName)
-            ->where('key', '=', $key)
-            ->first();
+        $service = static::find($serviceName);
 
-        if (!$service) {
+        if (!$service || $service->key !== $key) {
             throw new LoginException('Incorrect key or service name!');
         }
 
         $smt = new ServiceMasterToken();
         $smt->setSigningKey(config('app.service_key'));
-        $smt->setAuthIdentification($service->getAuthIdentifier());
+        $smt->setAuthIdentification($service->name);
 
         return $smt->generateJWT();
     }
 
     /**
-     * @param string $token
-     * @param string $serviceName
-     * @return string
-     * @throws ServiceNotFoundAuthException
-     * @throws TokenExpiredException
+     * @throws ServiceNotFoundAuthException|TokenExpiredException
      */
     final public static function actionLoginToService(string $token, string $serviceName): string
     {
@@ -84,13 +61,12 @@ class Service extends EgalModel
         $smt->isAliveOrFail();
 
         /** @var Service $senderService */
-        $senderService = Service::query()->find($smt->getAuthIdentification());
+        $senderService = static::find($smt->getAuthIdentification());
         if (!$senderService) {
             throw new ServiceNotFoundAuthException();
         }
 
-        /** @var Service $recipientService */
-        $recipientService = Service::query()->find($serviceName);
+        $recipientService = static::find($serviceName);
 
         if (!$recipientService) {
             throw new ServiceNotFoundAuthException();
@@ -103,16 +79,22 @@ class Service extends EgalModel
         return $sst->generateJWT();
     }
 
-    /**
-     * @return array
-     */
     protected function generateAuthInformation(): array
     {
-        $result = $this->fresh()->toArray();
-        $result['auth_identification'] = $this->{$this->getKeyName()};
+        $result['auth_identification'] = $this->name;
         $result['service'] = $this->name;
 
         return $result;
+    }
+
+    public function getKey(): string
+    {
+        return $this->key;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
     }
 
 }

@@ -20,20 +20,20 @@ use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
- * @property $id {@primary-key} {@property-type field}
- * @property $email {@property-type field} {@validation-rules required|string|email|unique:users,email}
- * @property $password {@property-type field} {@validation-rules required|string}
- * @property $created_at {@property-type field}
- * @property $updated_at {@property-type field}
+ * @property $id            {@property-type field}  {@primary-key}
+ * @property $email         {@property-type field}  {@validation-rules required|string|email|unique:users,email}
+ * @property $password      {@property-type field}  {@validation-rules required|string}
+ * @property $created_at    {@property-type field}
+ * @property $updated_at    {@property-type field}
  *
- * @property Collection $roles {@property-type relation}
- * @property Collection $permissions {@property-type relation}
+ * @property Collection $roles          {@property-type relation}
+ * @property Collection $permissions    {@property-type relation}
  *
- * @action register {@statuses-access guest}
- * @action registerByEmailAndPassword {@statuses-access guest}
- * @action login {@statuses-access guest}
- * @action loginByEmailAndPassword {@statuses-access guest}
- * @action loginToService {@statuses-access guest}
+ * @action register                     {@statuses-access guest}
+ * @action registerByEmailAndPassword   {@statuses-access guest}
+ * @action login                        {@statuses-access guest}
+ * @action loginByEmailAndPassword      {@statuses-access guest}
+ * @action loginToService               {@statuses-access guest}
  */
 class User extends Model
 {
@@ -57,9 +57,6 @@ class User extends Model
     #region actions
 
     /**
-     * @param string $email
-     * @param string $password
-     * @return User
      * @throws PasswordHashException
      */
     public static function actionRegister(string $email, string $password): User
@@ -67,12 +64,13 @@ class User extends Model
         return static::actionRegisterByEmailAndPassword($email, $password);
     }
 
+    public static function actionLogin(string $email, string $password): string
+    {
+        return static::actionLoginByEmailAndPassword($email, $password);
+    }
+
     /**
-     * @param string $email
-     * @param string $password
-     * @return User
-     * @throws PasswordHashException
-     * @throws Exception
+     * @throws PasswordHashException|Exception
      */
     public static function actionRegisterByEmailAndPassword(string $email, string $password): User
     {
@@ -94,9 +92,6 @@ class User extends Model
     }
 
     /**
-     * @param string $email
-     * @param string $password
-     * @return string
      * @throws LoginException
      */
     public static function actionLoginByEmailAndPassword(string $email, string $password): string
@@ -118,12 +113,7 @@ class User extends Model
     }
 
     /**
-     * @param string $token
-     * @param string $serviceName
-     * @return string
-     * @throws LoginException
-     * @throws UserNotIdentifiedException
-     * @throws TokenExpiredException
+     * @throws LoginException|UserNotIdentifiedException|TokenExpiredException
      */
     final public static function actionLoginToService(string $token, string $serviceName): string
     {
@@ -133,26 +123,16 @@ class User extends Model
 
         /** @var User $user */
         $user = static::query()->find($umt->getAuthIdentification());
-        /** @var Service $service */
-        $service = Service::query()->find($serviceName);
+        $service = Service::find($serviceName);
         if (!$user) {
             throw new UserNotIdentifiedException();
         }
         if (!$service) {
-            $thisServiceName = config('app.service_name');
-            if ($serviceName === $thisServiceName) {
-                $service = new Service();
-                $service->id = $thisServiceName;
-                $service->name = $thisServiceName;
-                $service->key = config('app.service_key');
-                $service->save();
-            } else {
-                throw new LoginException('Service not found!');
-            }
+            throw new LoginException('Service not found!');
         }
 
         $ust = new UserServiceToken();
-        $ust->setSigningKey($service->key);
+        $ust->setSigningKey($service->getKey());
         $ust->setAuthInformation($user->generateAuthInformation());
 
         return $ust->generateJWT();
