@@ -23,7 +23,7 @@ $app = new Egal\Core\Application(
     dirname(__DIR__)
 );
 
-// $app->withFacades();
+$app->withFacades();
 
 $app->withEloquent();
 
@@ -68,5 +68,6 @@ $app->configure('app');
 
 $app->register(Egal\Core\ServiceProvider::class);
 $app->register(Egal\Model\ServiceProvider::class);
+$app->register(App\Providers\EnviromentReadingProvider::class);
 
 return $app;
