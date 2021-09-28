@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Service;
 use Illuminate\Console\Command;
 use Throwable;
 
@@ -10,6 +9,7 @@ use Throwable;
  * Register your service in auth-service.
  *
  * @package App\Console\Commands
+ * @deprecated replaced by automatic registration of services
  */
 class RegisterServiceCommand extends Command
 {
@@ -26,14 +26,9 @@ class RegisterServiceCommand extends Command
      */
     public function handle(): void
     {
-        $serviceName = trim((string)$this->argument('service_name'));
-        $serviceKey = trim((string)$this->argument('service_key'));
-
-        $service = new Service();
-        $service->id = $serviceName;
-        $service->name = $serviceName;
-        $service->key = $serviceKey;
-        $service->saveOrFail();
+        $this->error('This command is deprecated and will be removed since version 2.0.0.'
+            .PHP_EOL
+            .'Deprecation\'s reason: Command is replaced by automatic registration of services');
     }
 
 }
