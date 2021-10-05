@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e035d364f0f1d610c8e6c0ca099a634c",
+    "content-hash": "ec82250549e8a748f2dd2b284a7784e8",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -441,16 +441,16 @@
         },
         {
             "name": "egal/framework",
-            "version": "v2.0.0beta45",
+            "version": "dev-transfer_auth_service_dependencies",
             "source": {
                 "type": "git",
                 "url": "https://github.com/egal/egal-framework-php-package.git",
-                "reference": "89e6108a2658f10f1ec512f28feab6d3e3f58ede"
+                "reference": "a9a1a15d2bcbff298e6d6c8e531f7ad3aabceb83"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/egal/egal-framework-php-package/zipball/89e6108a2658f10f1ec512f28feab6d3e3f58ede",
-                "reference": "89e6108a2658f10f1ec512f28feab6d3e3f58ede",
+                "url": "https://api.github.com/repos/egal/egal-framework-php-package/zipball/a9a1a15d2bcbff298e6d6c8e531f7ad3aabceb83",
+                "reference": "a9a1a15d2bcbff298e6d6c8e531f7ad3aabceb83",
                 "shasum": ""
             },
             "require": {
@@ -488,9 +488,9 @@
             "description": "The Egal Framework.",
             "support": {
                 "issues": "https://github.com/egal/egal-framework-php-package/issues",
-                "source": "https://github.com/egal/egal-framework-php-package/tree/v2.0.0beta45"
+                "source": "https://github.com/egal/egal-framework-php-package/tree/transfer_auth_service_dependencies"
             },
-            "time": "2021-10-04T07:30:43+00:00"
+            "time": "2021-10-05T09:02:02+00:00"
         },
         {
             "name": "egulias/email-validator",
@@ -8374,7 +8374,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "egal/framework": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

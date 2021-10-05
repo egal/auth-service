@@ -6,7 +6,7 @@
     "prefer-stable": true,
     "require": {
         "php": "^7.4|^8.0",
-        "egal/framework": "v2.0.0beta45",
+        "egal/framework": "dev-transfer_auth_service_dependencies",
         "staudenmeir/eloquent-has-many-deep": "^1.13"
     },
     "require-dev": {
