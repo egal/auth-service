@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "55b3022ad1300f147ecfac2eadc973d6",
+    "content-hash": "1f52f045071b00ae1f6557964ea33286",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -441,16 +441,16 @@
         },
         {
             "name": "egal/framework",
-            "version": "v2.0.0beta43",
+            "version": "v2.0.0beta44",
             "source": {
                 "type": "git",
                 "url": "https://github.com/egal/egal-framework-php-package.git",
-                "reference": "048aeb5213c6a60996f567bcc7cece45462f777f"
+                "reference": "47e86afb18ceeec5b7f0bf570825af9101b1d044"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/egal/egal-framework-php-package/zipball/048aeb5213c6a60996f567bcc7cece45462f777f",
-                "reference": "048aeb5213c6a60996f567bcc7cece45462f777f",
+                "url": "https://api.github.com/repos/egal/egal-framework-php-package/zipball/47e86afb18ceeec5b7f0bf570825af9101b1d044",
+                "reference": "47e86afb18ceeec5b7f0bf570825af9101b1d044",
                 "shasum": ""
             },
             "require": {
@@ -488,9 +488,9 @@
             "description": "The Egal Framework.",
             "support": {
                 "issues": "https://github.com/egal/egal-framework-php-package/issues",
-                "source": "https://github.com/egal/egal-framework-php-package/tree/v2.0.0beta43"
+                "source": "https://github.com/egal/egal-framework-php-package/tree/v2.0.0beta44"
             },
-            "time": "2021-09-27T06:24:25+00:00"
+            "time": "2021-09-28T05:00:37+00:00"
         },
         {
             "name": "egulias/email-validator",
