@@ -3,16 +3,11 @@
 namespace App\Models;
 
 use App\Exceptions\EmptyPasswordException;
-use App\Exceptions\LoginException;
 use App\Exceptions\PasswordHashException;
-use App\Exceptions\UserNotIdentifiedException;
-use Egal\Auth\Exceptions\TokenExpiredException;
 use Egal\Auth\Tokens\UserMasterToken;
-use Egal\Auth\Tokens\UserServiceToken;
-use Egal\Auth\Traits\Authenticatable;
-use Egal\Model\Model;
-use Egal\Model\Traits\UsesUuid;
-use Exception;
+use Egal\AuthServiceDependencies\Exceptions\LoginException;
+use Egal\AuthServiceDependencies\Models\User as BaseUser;
+use Egal\Model\Traits\UsesUuidKey;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Collection;
@@ -30,23 +25,18 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property Collection $permissions    {@property-type relation}
  *
  * @action register                     {@statuses-access guest}
- * @action registerByEmailAndPassword   {@statuses-access guest}
  * @action login                        {@statuses-access guest}
- * @action loginByEmailAndPassword      {@statuses-access guest}
  * @action loginToService               {@statuses-access guest}
  */
-class User extends Model
+class User extends BaseUser
 {
 
-    use Authenticatable,
-        UsesUuid,
-        HasFactory,
-        HasRelationships;
+    use UsesUuidKey;
+    use HasFactory;
+    use HasRelationships;
 
     protected $hidden = [
         'password',
-        'created_at',
-        'updated_at',
     ];
 
     protected $guarder = [
@@ -54,54 +44,34 @@ class User extends Model
         'updated_at',
     ];
 
-    #region actions
-
-    /**
-     * @throws PasswordHashException
-     */
     public static function actionRegister(string $email, string $password): User
-    {
-        return static::actionRegisterByEmailAndPassword($email, $password);
-    }
-
-    public static function actionLogin(string $email, string $password): string
-    {
-        return static::actionLoginByEmailAndPassword($email, $password);
-    }
-
-    /**
-     * @throws PasswordHashException|Exception
-     */
-    public static function actionRegisterByEmailAndPassword(string $email, string $password): User
     {
         if (!$password) {
             throw new EmptyPasswordException();
         }
 
         $user = new static();
-        $user->email = $email;
+        $user->setAttribute('email', $email);
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
         if (!$hashedPassword) {
             throw new PasswordHashException();
         }
 
-        $user->password = $hashedPassword;
+        $user->setAttribute('password', $hashedPassword);
         $user->save();
+
         return $user;
     }
 
-    /**
-     * @throws LoginException
-     */
-    public static function actionLoginByEmailAndPassword(string $email, string $password): string
+    public static function actionLogin(string $email, string $password): string
     {
-        /** @var User $user */
+        /** @var BaseUser $user */
         $user = self::query()
             ->where('email', '=', $email)
             ->first();
 
-        if (!$user || !password_verify($password, $user->password)) {
+        if (!$user || !password_verify($password, $user->getAttribute('password'))) {
             throw new LoginException('Incorrect Email or password!');
         }
 
@@ -111,36 +81,6 @@ class User extends Model
 
         return $umt->generateJWT();
     }
-
-    /**
-     * @throws LoginException|UserNotIdentifiedException|TokenExpiredException
-     */
-    final public static function actionLoginToService(string $token, string $serviceName): string
-    {
-        /** @var UserMasterToken $umt */
-        $umt = UserMasterToken::fromJWT($token, config('app.service_key'));
-        $umt->isAliveOrFail();
-
-        /** @var User $user */
-        $user = static::query()->find($umt->getAuthIdentification());
-        $service = Service::find($serviceName);
-        if (!$user) {
-            throw new UserNotIdentifiedException();
-        }
-        if (!$service) {
-            throw new LoginException('Service not found!');
-        }
-
-        $ust = new UserServiceToken();
-        $ust->setSigningKey($service->getKey());
-        $ust->setAuthInformation($user->generateAuthInformation());
-
-        return $ust->generateJWT();
-    }
-
-    #endregion actions
-
-    #region relations
 
     public function roles(): BelongsToMany
     {
@@ -157,8 +97,6 @@ class User extends Model
         );
     }
 
-    #endregion relations
-
     protected static function boot()
     {
         parent::boot();
@@ -171,16 +109,14 @@ class User extends Model
         });
     }
 
-    protected function generateAuthInformation(): array
+    protected function getRoles(): array
     {
-        return array_merge(
-            $this->fresh()->toArray(),
-            [
-                'auth_identification' => $this->{$this->getKeyName()},
-                'roles' => array_unique($this->roles->pluck('id')->toArray()),
-                'permissions' => array_unique($this->permissions->pluck('id')->toArray())
-            ]
-        );
+        return array_unique($this->roles->pluck('id')->toArray());
+    }
+
+    protected function getPermissions(): array
+    {
+        return array_unique($this->permissions->pluck('id')->toArray());
     }
 
 }

@@ -7,9 +7,6 @@ use Illuminate\Database\Migrations\Migration;
 class UsersPasswordHashing extends Migration
 {
 
-    /**
-     * @throws PasswordHashException
-     */
     public function up(): void
     {
         # TODO: Реализовать на SQL
@@ -24,9 +21,6 @@ class UsersPasswordHashing extends Migration
         }
     }
 
-    /**
-     * @throws Exception
-     */
     public function down(): void
     {
         # TODO: Реализовать
