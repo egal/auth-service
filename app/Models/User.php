@@ -29,6 +29,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @action login                        {@statuses-access guest}
  * @action loginAndGetRefreshToken      {@statuses-access guest}
  * @action loginToService               {@statuses-access guest}
+ * @action refreshUserMasterToken       {@statuses-access guest}
  */
 class User extends BaseUser
 {
