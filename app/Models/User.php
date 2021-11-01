@@ -79,15 +79,31 @@ class User extends BaseUser
         $umt = new UserMasterToken();
         $umt->setSigningKey(config('app.service_key'));
         $umt->setAuthIdentification($user->getAuthIdentifier());
+        return $umt->generateJWT();
+    }
 
+    public static function actionLoginAndGetRefreshToken(string $email, string $password): array
+    {
+        /** @var BaseUser $user */
+        $user = self::query()
+            ->where('email', '=', $email)
+            ->first();
+
+        if (!$user || !password_verify($password, $user->getAttribute('password'))) {
+            throw new LoginException('Incorrect Email or password!');
+        }
+
+        $umt = new UserMasterToken();
+        $umt->setSigningKey(config('app.service_key'));
+        $umt->setAuthIdentification($user->getAuthIdentifier());
         $umrt = new UserMasterRefreshToken();
         $umt->setSigningKey(config('app.service_key'));
         $umrt->setAuthIdentification($user->getAuthIdentifier());
 
-        return json_encode([
+        return [
             'user_master_token' => $umt->generateJWT(),
             'user_master_refresh_token' => $umrt->generateJWT()
-        ]);
+        ];
     }
 
     public function roles(): BelongsToMany
