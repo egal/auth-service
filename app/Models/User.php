@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Exceptions\EmptyPasswordException;
 use App\Exceptions\PasswordHashException;
+use Egal\Auth\Tokens\UserMasterRefreshToken;
 use Egal\Auth\Tokens\UserMasterToken;
 use Egal\AuthServiceDependencies\Exceptions\LoginException;
 use Egal\AuthServiceDependencies\Models\User as BaseUser;
@@ -79,7 +80,14 @@ class User extends BaseUser
         $umt->setSigningKey(config('app.service_key'));
         $umt->setAuthIdentification($user->getAuthIdentifier());
 
-        return $umt->generateJWT();
+        $umrt = new UserMasterRefreshToken();
+        $umt->setSigningKey(config('app.service_key'));
+        $umrt->setAuthIdentification($user->getAuthIdentifier());
+
+        return json_encode([
+            'user_master_token' => $umt->generateJWT(),
+            'user_master_refresh_token' => $umrt->generateJWT()
+        ]);
     }
 
     public function roles(): BelongsToMany
