@@ -97,7 +97,7 @@ class User extends BaseUser
         $umt->setSigningKey(config('app.service_key'));
         $umt->setAuthIdentification($user->getAuthIdentifier());
         $umrt = new UserMasterRefreshToken();
-        $umt->setSigningKey(config('app.service_key'));
+        $umrt->setSigningKey(config('app.service_key'));
         $umrt->setAuthIdentification($user->getAuthIdentifier());
 
         return [
