@@ -29,7 +29,6 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  *
  * @action register                     {@statuses-access guest}
  * @action login                        {@statuses-access guest}
- * @action loginAndGetRefreshToken      {@statuses-access guest}
  * @action loginToService               {@statuses-access guest}
  * @action refreshUserMasterToken       {@statuses-access guest}
  */
@@ -69,7 +68,7 @@ class User extends BaseUser
         return $user;
     }
 
-    public static function actionLogin(string $email, string $password): string
+    public static function actionLogin(string $email, string $password): array
     {
         /** @var BaseUser $user */
         $user = self::query()
@@ -84,23 +83,6 @@ class User extends BaseUser
         $umt->setSigningKey(config('app.service_key'));
         $umt->setAuthIdentification($user->getAuthIdentifier());
 
-        return $umt->generateJWT();
-    }
-
-    public static function actionLoginAndGetRefreshToken(string $email, string $password): array
-    {
-        /** @var BaseUser $user */
-        $user = self::query()
-            ->where('email', '=', $email)
-            ->first();
-
-        if (!$user || !password_verify($password, $user->getAttribute('password'))) {
-            throw new LoginException('Incorrect Email or password!');
-        }
-
-        $umt = new UserMasterToken();
-        $umt->setSigningKey(config('app.service_key'));
-        $umt->setAuthIdentification($user->getAuthIdentifier());
         $umrt = new UserMasterRefreshToken();
         $umrt->setSigningKey(config('app.service_key'));
         $umrt->setAuthIdentification($user->getAuthIdentifier());
@@ -109,31 +91,6 @@ class User extends BaseUser
             'user_master_token' => $umt->generateJWT(),
             'user_master_refresh_token' => $umrt->generateJWT()
         ];
-    }
-
-    public static function actionLoginToService(string $token, string $serviceName): string
-    {
-        /** @var \Egal\Auth\Tokens\UserMasterToken $umt */
-        $umt = UserMasterToken::fromJWT($token, config('app.service_key'));
-        $umt->isAliveOrFail();
-
-        /** @var \Egal\AuthServiceDependencies\Models\User $user */
-        $user = static::query()->find($umt->getAuthIdentification());
-        $service = Service::find($serviceName);
-
-        if (!$user) {
-            throw new UserNotIdentifiedException();
-        }
-
-        if (!$service) {
-            throw new LoginException('Service not found!');
-        }
-
-        $ust = new UserServiceToken();
-        $ust->setSigningKey($service->getKey());
-        $ust->setAuthInformation($user->generateAuthInformation());
-
-        return $ust->generateJWT();
     }
 
     public function roles(): BelongsToMany
