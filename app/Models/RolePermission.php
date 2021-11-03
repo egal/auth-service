@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Egal\Centrifugo\DeletedModelCentrifugoEvent;
+use Egal\Centrifugo\SavedModelCentrifugoEvent;
 use Egal\Model\Model;
 
 /**
@@ -30,4 +32,8 @@ class RolePermission extends Model
         'updated_at',
     ];
 
+    protected $dispatchesEvents = [
+        'saved' => SavedModelCentrifugoEvent::class,
+        'deleted' => DeletedModelCentrifugoEvent::class,
+    ];
 }

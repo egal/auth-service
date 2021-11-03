@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Egal\Centrifugo\DeletedModelCentrifugoEvent;
+use Egal\Centrifugo\SavedModelCentrifugoEvent;
 use Egal\Model\Model;
 
 /**
@@ -28,6 +30,11 @@ class UserRole extends Model
     protected $hidden = [
         'created_at',
         'updated_at',
+    ];
+
+    protected $dispatchesEvents = [
+        'saved' => SavedModelCentrifugoEvent::class,
+        'deleted' => DeletedModelCentrifugoEvent::class,
     ];
 
 }
