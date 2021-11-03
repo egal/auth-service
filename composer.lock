@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f98b8b88131388e4550aea35a60320ec",
+    "content-hash": "299ab281b57f7ef7a111a4868b31bd49",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -491,16 +491,16 @@
         },
         {
             "name": "egal/framework",
-            "version": "v2.0.0beta47",
+            "version": "dev-user_master_refresh_token",
             "source": {
                 "type": "git",
                 "url": "https://github.com/egal/egal-framework-php-package.git",
-                "reference": "b17b695cc62229e376ef499b7344f66f25fe2cb1"
+                "reference": "67d8ec8c9671cf3bb3298f30715e845831605061"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/egal/egal-framework-php-package/zipball/b17b695cc62229e376ef499b7344f66f25fe2cb1",
-                "reference": "b17b695cc62229e376ef499b7344f66f25fe2cb1",
+                "url": "https://api.github.com/repos/egal/egal-framework-php-package/zipball/67d8ec8c9671cf3bb3298f30715e845831605061",
+                "reference": "67d8ec8c9671cf3bb3298f30715e845831605061",
                 "shasum": ""
             },
             "require": {
@@ -539,9 +539,9 @@
             "description": "The Egal Framework.",
             "support": {
                 "issues": "https://github.com/egal/egal-framework-php-package/issues",
-                "source": "https://github.com/egal/egal-framework-php-package/tree/v2.0.0beta47"
+                "source": "https://github.com/egal/egal-framework-php-package/tree/user_master_refresh_token"
             },
-            "time": "2021-10-11T03:57:26+00:00"
+            "time": "2021-11-01T09:30:37+00:00"
         },
         {
             "name": "egulias/email-validator",
@@ -8640,11 +8640,14 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "egal/framework": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.4|^8.0"
+        "php": "^7.4|^8.0",
+        "ext-json": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.1.0"

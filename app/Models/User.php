@@ -4,8 +4,11 @@ namespace App\Models;
 
 use App\Exceptions\EmptyPasswordException;
 use App\Exceptions\PasswordHashException;
+use Egal\Auth\Tokens\UserMasterRefreshToken;
 use Egal\Auth\Tokens\UserMasterToken;
+use Egal\Auth\Tokens\UserServiceToken;
 use Egal\AuthServiceDependencies\Exceptions\LoginException;
+use Egal\AuthServiceDependencies\Exceptions\UserNotIdentifiedException;
 use Egal\AuthServiceDependencies\Models\User as BaseUser;
 use Egal\Model\Traits\UsesUuidKey;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -27,6 +30,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @action register                     {@statuses-access guest}
  * @action login                        {@statuses-access guest}
  * @action loginToService               {@statuses-access guest}
+ * @action refreshUserMasterToken       {@statuses-access guest}
  */
 class User extends BaseUser
 {
@@ -64,7 +68,7 @@ class User extends BaseUser
         return $user;
     }
 
-    public static function actionLogin(string $email, string $password): string
+    public static function actionLogin(string $email, string $password): array
     {
         /** @var BaseUser $user */
         $user = self::query()
@@ -79,7 +83,14 @@ class User extends BaseUser
         $umt->setSigningKey(config('app.service_key'));
         $umt->setAuthIdentification($user->getAuthIdentifier());
 
-        return $umt->generateJWT();
+        $umrt = new UserMasterRefreshToken();
+        $umrt->setSigningKey(config('app.service_key'));
+        $umrt->setAuthIdentification($user->getAuthIdentifier());
+
+        return [
+            'user_master_token' => $umt->generateJWT(),
+            'user_master_refresh_token' => $umrt->generateJWT()
+        ];
     }
 
     public function roles(): BelongsToMany

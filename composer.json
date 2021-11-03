@@ -6,8 +6,9 @@
     "prefer-stable": true,
     "require": {
         "php": "^7.4|^8.0",
-        "egal/framework": "v2.0.0beta47",
-        "staudenmeir/eloquent-has-many-deep": "^1.13"
+        "egal/framework": "v2.0.0beta53",
+        "staudenmeir/eloquent-has-many-deep": "^1.13",
+        "ext-json": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
