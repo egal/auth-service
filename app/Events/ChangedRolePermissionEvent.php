@@ -8,13 +8,10 @@ class ChangedRolePermissionEvent extends CentrifugoEvent
 {
     public function broadcastOn(): array
     {
-        $user = $this->entity->user()->first();
-        $service = config('app.service_name');
+        $role = $this->entity->role()->first();
 
-        $channels = parent::broadcastOn();
-        $parentEntityChannel = $service . '@' . get_class_short_name($user) . '.' . $user->id;
-        $channels[] = $parentEntityChannel;
+        ChangedRoleEvent::dispatch($role);
 
-        return $channels;
+        return parent::broadcastOn();
     }
 }

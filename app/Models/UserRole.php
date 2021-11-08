@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Egal\Centrifugo\DeletedModelCentrifugoEvent;
-use Egal\Centrifugo\SavedModelCentrifugoEvent;
+use App\Events\ChangedUserRoleEvent;
 use Egal\Model\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property $id {@primary-key} {@property-type field}
@@ -33,8 +33,13 @@ class UserRole extends Model
     ];
 
     protected $dispatchesEvents = [
-        'saved' => SavedModelCentrifugoEvent::class,
-        'deleted' => DeletedModelCentrifugoEvent::class,
+        'saved' => ChangedUserRoleEvent::class,
+        'deleted' => ChangedUserRoleEvent::class,
     ];
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 
 }

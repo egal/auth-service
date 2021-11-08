@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Events\ChangedPermissionEvent;
 use Egal\Model\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @property $id {@primary-key} {@property-type field} {@validation-rules required|string|unique:permissions}
@@ -40,6 +42,16 @@ class Permission extends Model
         'created_at',
         'updated_at',
     ];
+
+    protected $dispatchesEvents = [
+        'saved' => ChangedPermissionEvent::class,
+        'deleted' => ChangedPermissionEvent::class,
+    ];
+
+    public function roles():  BelongsToMany
+    {
+        return $this->belongsToMany(Role::class, 'role_permissions');
+    }
 
     protected static function boot()
     {

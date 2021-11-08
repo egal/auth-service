@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Egal\Centrifugo\DeletedModelCentrifugoEvent;
-use Egal\Centrifugo\SavedModelCentrifugoEvent;
+use App\Events\ChangedRolePermissionEvent;
 use Egal\Model\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property $id {@primary-key} {@property-type field}
@@ -33,7 +33,12 @@ class RolePermission extends Model
     ];
 
     protected $dispatchesEvents = [
-        'saved' => SavedModelCentrifugoEvent::class,
-        'deleted' => DeletedModelCentrifugoEvent::class,
+        'saved' => ChangedRolePermissionEvent::class,
+        'deleted' => ChangedRolePermissionEvent::class,
     ];
+
+    public function role(): BelongsTo
+    {
+        return $this->belongsTo(Role::class);
+    }
 }
