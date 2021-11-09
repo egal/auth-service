@@ -7,7 +7,8 @@
     "require": {
         "php": "^7.4|^8.0",
         "egal/framework": "dev-internal_codes",
-        "staudenmeir/eloquent-has-many-deep": "^1.13"
+        "staudenmeir/eloquent-has-many-deep": "^1.13",
+        "ext-json": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
