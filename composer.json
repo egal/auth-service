@@ -6,7 +6,7 @@
     "prefer-stable": true,
     "require": {
         "php": "^7.4|^8.0",
-        "egal/framework": "v2.0.0beta53",
+        "egal/framework": "dev-main",
         "staudenmeir/eloquent-has-many-deep": "^1.13",
         "ext-json": "*"
     },
