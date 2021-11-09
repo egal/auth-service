@@ -69,5 +69,7 @@ $app->configure('app');
 $app->register(Egal\Core\ServiceProvider::class);
 $app->register(Egal\Model\ServiceProvider::class);
 $app->register(Egal\AuthServiceDependencies\ServiceProvider::class);
+$app->register(Illuminate\Broadcasting\BroadcastServiceProvider::class);
+$app->register(Egal\Centrifugo\ServiceProvider::class);
 
 return $app;
