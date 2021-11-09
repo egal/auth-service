@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Events\ChangedRoleEvent;
+use App\Events\ChangedRolePermissionEvent;
 use Egal\Model\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -42,6 +44,11 @@ class Role extends Model
     protected $hidden = [
         'created_at',
         'updated_at',
+    ];
+
+    protected $dispatchesEvents = [
+        'saved' => ChangedRoleEvent::class,
+        'deleted' => ChangedRoleEvent::class,
     ];
 
     protected static function boot()
