@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "299ab281b57f7ef7a111a4868b31bd49",
+    "content-hash": "a46dd4d43f959a66e85ea20d1e5f56c4",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -491,16 +491,16 @@
         },
         {
             "name": "egal/framework",
-            "version": "dev-user_master_refresh_token",
+            "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "https://github.com/egal/egal-framework-php-package.git",
-                "reference": "67d8ec8c9671cf3bb3298f30715e845831605061"
+                "reference": "48ec4df50db42af57fa2458474e13950435a622c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/egal/egal-framework-php-package/zipball/67d8ec8c9671cf3bb3298f30715e845831605061",
-                "reference": "67d8ec8c9671cf3bb3298f30715e845831605061",
+                "url": "https://api.github.com/repos/egal/egal-framework-php-package/zipball/48ec4df50db42af57fa2458474e13950435a622c",
+                "reference": "48ec4df50db42af57fa2458474e13950435a622c",
                 "shasum": ""
             },
             "require": {
@@ -522,6 +522,7 @@
                 "slevomat/coding-standard": "^7.0",
                 "squizlabs/php_codesniffer": "^3.6"
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "files": [
@@ -539,9 +540,9 @@
             "description": "The Egal Framework.",
             "support": {
                 "issues": "https://github.com/egal/egal-framework-php-package/issues",
-                "source": "https://github.com/egal/egal-framework-php-package/tree/user_master_refresh_token"
+                "source": "https://github.com/egal/egal-framework-php-package/tree/main"
             },
-            "time": "2021-11-01T09:30:37+00:00"
+            "time": "2021-11-09T05:07:31+00:00"
         },
         {
             "name": "egulias/email-validator",
