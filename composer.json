@@ -6,10 +6,10 @@
     "prefer-stable": true,
     "require": {
         "php": "^8.0",
+        "ext-json": "*",
         "egal/framework": "2.0.0",
-        "staudenmeir/eloquent-has-many-deep": "^1.13",
-        "fakerphp/faker": "^1.9.1",
-        "ext-json": "*"
+        "fakerphp/faker": "^1.16",
+        "staudenmeir/eloquent-has-many-deep": "^1.13"
     },
     "require-dev": {
         "mockery/mockery": "^1.3.1",
