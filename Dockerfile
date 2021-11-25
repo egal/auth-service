@@ -1,50 +1,37 @@
-FROM php:7.4.16-cli-buster
-
-# Arguments defined in docker-compose.yml
-ARG user=dev
-ARG uid=1000
-
-# Установить системные зависимости
-RUN apt-get update && apt-get install -y \
-    libpq-dev \
-    curl \
-    git \
-    zip \
-    unzip \
-    procps
-
-# Очистить кэш
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
-
-# Установить расширения PHP
-RUN docker-php-ext-install \
-    pdo_mysql \
-    sockets \
-    pdo_pgsql \
-    pcntl
-
-#RUN docker-php-ext-enable \
-#    pdo_mysql
-
-# Получить последнюю версию Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
-# Добавьте wait к изображению
+FROM alpine/git:v2.32.0 as wait
 ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.8.0/wait /wait
+
+
+FROM php:8.0.13-alpine
+
+ARG DEBUG='false'
+ARG RUN_DEPS='postgresql-libs'
+ARG BUILD_DEPS='postgresql-dev'
+ARG PHP_EXTENSIONS='sockets pcntl pdo_pgsql'
+
+# Validate args
+RUN if [ $DEBUG != 'true' && $DEBUG != 'false' ]; then echo 'DEBUG argument must be `true` or `false`!'; exit 1; fi
+
+# Preparing system
+RUN echo 'UTC' > /etc/timezone
+COPY --from=wait /wait /.
 RUN chmod +x /wait
-
-# Create system user to run Composer and Artisan Commands
-RUN useradd -G www-data,root -u $uid -d /home/$user $user
-RUN mkdir -p /home/$user/.composer && \
-    chown -R $user:$user /home/$user
-
+RUN apk add --no-cache --virtual .build-deps $BUILD_DEPS \
+    && docker-php-ext-install -j "$(nproc)" $PHP_EXTENSIONS \
+    && apk del .build-deps
+RUN apk add --no-cache --virtual .run-deps $RUN_DEPS
+COPY --from=composer /usr/bin/composer /usr/bin/composer
 WORKDIR /app
 
+# Preparing code base
+COPY composer.json .
+COPY composer.lock .
+RUN composer install --no-interaction --no-progress --no-autoloader --no-cache \
+    $(if [ $DEBUG == 'true' ]; then echo '--dev'; else echo '--no-dev'; fi)
 COPY . .
+RUN composer dump-autoload
 
-RUN composer install --no-interaction || (rm -rf vendor && composer install --no-interaction)
-RUN chown -R $user:$user /app
+# Cleanup before run
+RUN if [ $DEBUG == 'false' ]; then rm /usr/bin/composer; fi
 
-USER $user
-
-CMD /wait && ./artisan migrate --force && ./artisan egal:run
+CMD /wait && php artisan migrate --force --seed && php artisan egal:run
