@@ -8,10 +8,10 @@
         "php": "^8.0",
         "egal/framework": "2.0.0",
         "staudenmeir/eloquent-has-many-deep": "^1.13",
+        "fakerphp/faker": "^1.9.1",
         "ext-json": "*"
     },
     "require-dev": {
-        "fakerphp/faker": "^1.9.1",
         "mockery/mockery": "^1.3.1",
         "phpunit/phpunit": "^9.3"
     },
