@@ -21,6 +21,7 @@ class AdminRoleSeeder extends Seeder
             'is_default' => false
         ];
         dump((new Role())->fill($adminRoleAttributes)->exists);
+        dump((new Role())->fill($adminRoleAttributes)->toArray());
         if (!(new Role())->fill($adminRoleAttributes)->exists) {
             Role::factory()->create($adminRoleAttributes);
         }
