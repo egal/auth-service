@@ -15,11 +15,15 @@ class AdminRoleSeeder extends Seeder
      */
     public function run()
     {
-        Role::factory()->create([
+        $adminRoleAttributes = [
             'id' => 'admin',
             'name' => 'Administrator',
             'is_default' => false
-        ]);
+        ];
+        dump((new Role())->fill($adminRoleAttributes)->exists);
+        if (!(new Role())->fill($adminRoleAttributes)->exists) {
+            Role::factory()->create($adminRoleAttributes);
+        }
     }
 
 }
