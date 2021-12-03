@@ -21,7 +21,7 @@ class AuthenticatePermissionSeeder extends Seeder
             'is_default' => true
         ];
         if (!(new Permission())->fill($authenticatePermissionAttributes)->exists()) {
-            Permission::factory()->create($authenticatePermissionAttributes);
+            Permission::query()->create($authenticatePermissionAttributes);
         }
     }
 

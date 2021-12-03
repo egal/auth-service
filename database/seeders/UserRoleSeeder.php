@@ -21,7 +21,7 @@ class UserRoleSeeder extends Seeder
             'is_default' => true
         ];
         if (!(new Role())->fill($userRoleAttributes)->exists()) {
-            Role::factory()->create($userRoleAttributes);
+            Role::query()->create($userRoleAttributes);
         }
     }
 

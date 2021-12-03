@@ -21,7 +21,7 @@ class DeveloperRoleSeeder extends Seeder
             'is_default' => false
         ];
         if (!(new Role())->fill($developerRoleAttributes)->exists()) {
-            Role::factory()->create($developerRoleAttributes);
+            Role::query()->create($developerRoleAttributes);
         }
     }
 
