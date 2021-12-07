@@ -15,11 +15,15 @@ class DeveloperRoleSeeder extends Seeder
      */
     public function run()
     {
-        Role::factory()->create([
-            'id' => 'developer',
+        $developerId = 'developer';
+        $developerRoleAttributes = [
+            'id' => $developerId,
             'name' => 'Developer',
             'is_default' => false
-        ]);
+        ];
+        if (!Role::query()->find($developerId)->exists()) {
+            Role::query()->create($developerRoleAttributes);
+        }
     }
 
 }
