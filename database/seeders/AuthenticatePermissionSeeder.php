@@ -15,12 +15,13 @@ class AuthenticatePermissionSeeder extends Seeder
      */
     public function run()
     {
+        $authenticateId = 'authenticate';
         $authenticatePermissionAttributes = [
-            'id' => 'authenticate',
+            'id' => $authenticateId,
             'name' => 'Authenticate',
             'is_default' => true
         ];
-        if (!(new Permission())->fill($authenticatePermissionAttributes)->exists()) {
+        if (!Permission::query()->find($authenticateId)->exists()) {
             Permission::query()->create($authenticatePermissionAttributes);
         }
     }

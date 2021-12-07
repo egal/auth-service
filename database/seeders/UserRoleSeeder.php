@@ -15,12 +15,13 @@ class UserRoleSeeder extends Seeder
      */
     public function run()
     {
+        $userId = 'user';
         $userRoleAttributes = [
-            'id' => 'user',
+            'id' => $userId,
             'name' => 'User',
             'is_default' => true
         ];
-        if (!(new Role())->fill($userRoleAttributes)->exists()) {
+        if (!Role::query()->find($userId)->exists()) {
             Role::query()->create($userRoleAttributes);
         }
     }

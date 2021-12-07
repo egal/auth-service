@@ -15,12 +15,13 @@ class DeveloperRoleSeeder extends Seeder
      */
     public function run()
     {
+        $developerId = 'developer';
         $developerRoleAttributes = [
-            'id' => 'developer',
+            'id' => $developerId,
             'name' => 'Developer',
             'is_default' => false
         ];
-        if (!(new Role())->fill($developerRoleAttributes)->exists()) {
+        if (!Role::query()->find($developerId)->exists()) {
             Role::query()->create($developerRoleAttributes);
         }
     }
