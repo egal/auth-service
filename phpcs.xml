@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<ruleset name="egal/php-project">
+    <rule ref="PSR1">
+        <exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace"/>
+    </rule>
+    <rule ref="PSR2">
+        <exclude name="PSR2.Classes.ClassDeclaration.CloseBraceAfterBody"/>
+        <exclude name="PSR2.Methods.FunctionClosingBrace.SpacingBeforeClose"/>
+        <exclude name="PSR2.ControlStructures.SwitchDeclaration.TerminatingComment"/>
+    </rule>
+
+    <rule ref="PSR12">
+        <exclude name="PSR12.Traits.UseDeclaration.UseAfterBrace"/>
+        <exclude name="PSR12.Classes.OpeningBraceSpace.Found"/>
+        <exclude name="PSR12.Files.FileHeader.SpacingAfterBlock"/>
+        <exclude name="PSR12.Files.OpenTag.NotAlone"/>
+    </rule>
+
+    <rule ref="PEAR.Functions.FunctionCallSignature">
+        <exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket"/>
+        <exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine"/>
+    </rule>
+
+    <exclude-pattern type="relative-root">*/tests/*</exclude-pattern>
+    <exclude-pattern type="relative-root">*/vendor/*</exclude-pattern>
+    <exclude-pattern type="relative-root">*/stubs/*</exclude-pattern>
+
+    <file>.</file>
+    <arg name="report" value="summary"/>
+    <arg name="report-xml" value=".phpcs.results.xml"/>
+</ruleset>

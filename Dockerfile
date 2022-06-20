@@ -2,7 +2,7 @@ FROM alpine/git:v2.32.0 as wait
 ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.8.0/wait /wait
 
 
-FROM php:8.0.13-alpine
+FROM php:8.1.6-alpine
 
 ARG DEBUG='false'
 ARG RUN_DEPS='postgresql-libs'

@@ -13,7 +13,7 @@ class AdminRoleSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         $adminId = 'admin';
         $adminRoleAttributes = [
@@ -21,7 +21,7 @@ class AdminRoleSeeder extends Seeder
             'name' => 'Administrator',
             'is_default' => false
         ];
-        if (!Role::query()->find($adminId)->exists()) {
+        if (!Role::query()->find($adminId)) {
             Role::query()->create($adminRoleAttributes);
         }
     }
