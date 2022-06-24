@@ -13,7 +13,7 @@ class DeveloperRoleSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         $developerId = 'developer';
         $developerRoleAttributes = [
@@ -21,7 +21,7 @@ class DeveloperRoleSeeder extends Seeder
             'name' => 'Developer',
             'is_default' => false
         ];
-        if (!Role::query()->find($developerId)->exists()) {
+        if (!Role::query()->find($developerId)) {
             Role::query()->create($developerRoleAttributes);
         }
     }

@@ -13,7 +13,7 @@ class AuthenticatePermissionSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         $authenticateId = 'authenticate';
         $authenticatePermissionAttributes = [
@@ -21,7 +21,7 @@ class AuthenticatePermissionSeeder extends Seeder
             'name' => 'Authenticate',
             'is_default' => true
         ];
-        if (!Permission::query()->find($authenticateId)->exists()) {
+        if (!Permission::query()->find($authenticateId)) {
             Permission::query()->create($authenticatePermissionAttributes);
         }
     }
