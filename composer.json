@@ -7,7 +7,7 @@
     "require": {
         "php": "^8.1",
         "ext-json": "*",
-        "egal/framework": "2.2.0",
+        "egal/framework": "2.2.2",
         "staudenmeir/eloquent-has-many-deep": "^1.13"
     },
     "require-dev": {
