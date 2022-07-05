@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5ccb2436f271ea86d029c4c03695a290",
+    "content-hash": "b0796bda8d88a04bc8350526ab653e3d",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -58,16 +58,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.229.0",
+            "version": "3.229.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "5e01f0809682060dc5018bf5f267f40c32f4944d"
+                "reference": "142a872fd7172bf5d067f4e30e4f89593296fc8f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/5e01f0809682060dc5018bf5f267f40c32f4944d",
-                "reference": "5e01f0809682060dc5018bf5f267f40c32f4944d",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/142a872fd7172bf5d067f4e30e4f89593296fc8f",
+                "reference": "142a872fd7172bf5d067f4e30e4f89593296fc8f",
                 "shasum": ""
             },
             "require": {
@@ -143,9 +143,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.229.0"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.229.2"
             },
-            "time": "2022-06-29T18:15:30+00:00"
+            "time": "2022-07-01T18:16:42+00:00"
         },
         {
             "name": "brick/math",
@@ -483,16 +483,16 @@
         },
         {
             "name": "egal/framework",
-            "version": "v2.2.2",
+            "version": "v2.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/egal/framework-php-package.git",
-                "reference": "4206350d07880ebdfb79939b07bdc794b2780e01"
+                "reference": "4bf15a0d14cf45ff21e436675d7be59863b460d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/egal/framework-php-package/zipball/4206350d07880ebdfb79939b07bdc794b2780e01",
-                "reference": "4206350d07880ebdfb79939b07bdc794b2780e01",
+                "url": "https://api.github.com/repos/egal/framework-php-package/zipball/4bf15a0d14cf45ff21e436675d7be59863b460d4",
+                "reference": "4bf15a0d14cf45ff21e436675d7be59863b460d4",
                 "shasum": ""
             },
             "require": {
@@ -530,9 +530,9 @@
             "description": "The Egal Framework.",
             "support": {
                 "issues": "https://github.com/egal/framework-php-package/issues",
-                "source": "https://github.com/egal/framework-php-package/tree/v2.2.2"
+                "source": "https://github.com/egal/framework-php-package/tree/v2.2.3"
             },
-            "time": "2022-06-30T06:00:59+00:00"
+            "time": "2022-07-05T10:24:48+00:00"
         },
         {
             "name": "egulias/email-validator",
@@ -2789,16 +2789,16 @@
         },
         {
             "name": "league/flysystem-aws-s3-v3",
-            "version": "1.0.29",
+            "version": "1.0.30",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem-aws-s3-v3.git",
-                "reference": "4e25cc0582a36a786c31115e419c6e40498f6972"
+                "reference": "af286f291ebab6877bac0c359c6c2cb017eb061d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem-aws-s3-v3/zipball/4e25cc0582a36a786c31115e419c6e40498f6972",
-                "reference": "4e25cc0582a36a786c31115e419c6e40498f6972",
+                "url": "https://api.github.com/repos/thephpleague/flysystem-aws-s3-v3/zipball/af286f291ebab6877bac0c359c6c2cb017eb061d",
+                "reference": "af286f291ebab6877bac0c359c6c2cb017eb061d",
                 "shasum": ""
             },
             "require": {
@@ -2834,9 +2834,23 @@
             "description": "Flysystem adapter for the AWS S3 SDK v3.x",
             "support": {
                 "issues": "https://github.com/thephpleague/flysystem-aws-s3-v3/issues",
-                "source": "https://github.com/thephpleague/flysystem-aws-s3-v3/tree/1.0.29"
+                "source": "https://github.com/thephpleague/flysystem-aws-s3-v3/tree/1.0.30"
             },
-            "time": "2020-10-08T18:58:37+00:00"
+            "funding": [
+                {
+                    "url": "https://offset.earth/frankdejonge",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/frankdejonge",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/league/flysystem",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-07-02T13:51:38+00:00"
         },
         {
             "name": "league/mime-type-detection",
